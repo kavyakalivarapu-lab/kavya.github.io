@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Facebook SDK Root -->
+    <div id="fb-root"></div>
+
     <header>
         <h1>Cyberbullying Detection from Images</h1>
         <p>Using Instagram Graph API to analyze public posts for signs of cyberbullying.</p>
@@ -33,20 +36,28 @@
         <p>&copy; 2025 Cyberbullying Detection Project. All rights reserved.</p>
     </footer>
 
-    <!-- Load Facebook SDK -->
-    <div id="fb-root"></div>
-    
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <!-- Initialize Facebook SDK -->
     <script>
-        // Initialize Facebook SDK
         window.fbAsyncInit = function() {
             FB.init({
-                appId      : '1166872554790044',  // Replace 'YOUR_APP_ID' with your app's actual ID
+                appId      : '1166872554790044',  // Replace 'YOUR_APP_ID' with your actual App ID
                 cookie     : true,
                 xfbml      : true,
-                version    : 'v12.0'         // Use the latest version
+                version    : 'v12.0'              // Use the latest version
             });
+            FB.AppEvents.logPageView();           // Optional: Log page view events
         };
+
+        // Load Facebook SDK
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.async = true;
+            js.defer = true;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
 
         // Handle the Facebook Login
         function facebookLogin() {
@@ -64,7 +75,5 @@
             }, { scope: 'instagram_basic,pages_show_list' });  // Request Instagram and Page permissions
         }
     </script>
-
-
 </body>
 </html>
