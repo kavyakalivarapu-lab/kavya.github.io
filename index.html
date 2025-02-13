@@ -16,6 +16,14 @@
             <h2>About This Project</h2>
             <p>This project uses deep learning to detect cyberbullying in images. We analyze public Instagram data to identify harmful behavior in images and comments.</p>
         </section>
+        
+        <!-- Facebook Login Button -->
+        <section>
+            <h2>Login with Facebook</h2>
+            <p>Log in to access Instagram data:</p>
+            <button onclick="facebookLogin()">Login with Facebook</button>
+        </section>
+
         <section>
             <h2>Privacy Policy</h2>
             <p>For more information on how we handle data, please visit our <a href="privacy-policy.html">Privacy Policy</a>.</p>
@@ -24,5 +32,38 @@
     <footer>
         <p>&copy; 2025 Cyberbullying Detection Project. All rights reserved.</p>
     </footer>
+
+    <!-- Load Facebook SDK -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+    <script>
+        // Initialize Facebook SDK
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '1166872554790044',  // Replace 'YOUR_APP_ID' with your app's actual ID
+                cookie     : true,
+                xfbml      : true,
+                version    : 'v12.0'         // Use the latest version
+            });
+        };
+
+        // Handle the Facebook Login
+        function facebookLogin() {
+            FB.login(function(response) {
+                if (response.authResponse) {
+                    console.log('Welcome! Fetching your information.... ');
+                    // Fetch user info (e.g., name, email, etc.)
+                    FB.api('/me?fields=id,name,email', function(response) {
+                        console.log('Good to see you, ' + response.name);
+                        // You can now access Instagram data or other Facebook data
+                    });
+                } else {
+                    console.log('User cancelled login or did not fully authorize.');
+                }
+            }, { scope: 'instagram_basic,pages_show_list' });  // Request Instagram and Page permissions
+        }
+    </script>
+
 </body>
 </html>
