@@ -7,9 +7,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Facebook SDK Root -->
-    <div id="fb-root"></div>
-
     <header>
         <h1>Cyberbullying Detection from Images</h1>
         <p>Using Instagram Graph API to analyze public posts for signs of cyberbullying.</p>
@@ -36,38 +33,31 @@
         <p>&copy; 2025 Cyberbullying Detection Project. All rights reserved.</p>
     </footer>
 
-    <!-- Initialize Facebook SDK -->
+    <!-- Load Facebook SDK -->
+    <div id="fb-root"></div>
+    
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
     <script>
+        // Initialize Facebook SDK
         window.fbAsyncInit = function() {
             FB.init({
-                appId      : '1166872554790044',  // Replace 'YOUR_APP_ID' with your actual App ID
+                appId      : '1166872554790044',  // Replace 'YOUR_APP_ID' with your app's actual ID
                 cookie     : true,
                 xfbml      : true,
-                version    : 'v12.0'              // Use the latest version
+                version    : 'v12.0'         // Use the latest version
             });
-            FB.AppEvents.logPageView();           // Optional: Log page view events
         };
-
-        // Load Facebook SDK
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) { return; }
-            js = d.createElement(s); js.id = id;
-            js.async = true;
-            js.defer = true;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
 
         // Handle the Facebook Login
         function facebookLogin() {
             FB.login(function(response) {
                 if (response.authResponse) {
                     console.log('Welcome! Fetching your information.... ');
+                    
                     // Fetch user info (e.g., name, email, etc.)
-                    FB.api('/me?fields=id,name,email', function(response) {
+                    FB.api('/me?fields=id,name,email', { access_token: response.authResponse.accessToken }, function(response) {
                         console.log('Good to see you, ' + response.name);
-                        // You can now access Instagram data or other Facebook data
+                        // Here you can also save the user info or do further processing
                     });
                 } else {
                     console.log('User cancelled login or did not fully authorize.');
