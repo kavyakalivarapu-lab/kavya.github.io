@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyberbullying Detection Project</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://example.com/path/to/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <header>
@@ -21,7 +22,7 @@
         <section>
             <h2>Login with Facebook</h2>
             <p>Log in to access Instagram data:</p>
-            <button onclick="facebookLogin()">Login with Facebook</button>
+            <button id="fbLoginBtn" onclick="facebookLogin()" style="padding: 10px 20px; background-color: #4267B2; color: white; border: none; border-radius: 5px; cursor: pointer;">Login with Facebook</button>
         </section>
 
         <section>
@@ -35,34 +36,35 @@
 
     <!-- Load Facebook SDK -->
     <div id="fb-root"></div>
-    
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
     <script>
         // Initialize Facebook SDK
         window.fbAsyncInit = function() {
             FB.init({
-                appId      : '1166872554790044',  // Replace 'YOUR_APP_ID' with your app's actual ID
+                appId      : '1166872554790044',  // Replace with your app's actual ID
                 cookie     : true,
                 xfbml      : true,
                 version    : 'v12.0'         // Use the latest version
             });
+            console.log('FB SDK initialized');
         };
 
         // Handle the Facebook Login
         function facebookLogin() {
-            FB.login(function(response) {
-                if (response.authResponse) {
-                    console.log('Welcome! Fetching your information.... ');
-                    
-                    // Fetch user info (e.g., name, email, etc.)
-                    FB.api('/me?fields=id,name,email', { access_token: response.authResponse.accessToken }, function(response) {
-                        console.log('Good to see you, ' + response.name);
-                        // Here you can also save the user info or do further processing
-                    });
-                } else {
-                    console.log('User cancelled login or did not fully authorize.');
-                }
-            }, { scope: 'instagram_basic,pages_show_list' });  // Request Instagram and Page permissions
+            if (typeof FB !== 'undefined') {
+                FB.login(function(response) {
+                    if (response.authResponse) {
+                        console.log('Welcome! Fetching your information.... ');
+                        FB.api('/me?fields=id,name,email', function(response) {
+                            console.log('Good to see you, ' + response.name);
+                        });
+                    } else {
+                        console.log('User cancelled login or did not fully authorize.');
+                    }
+                }, { scope: 'public_profile,email,instagram_basic,pages_show_list' });  
+            } else {
+                console.error('Facebook SDK not loaded.');
+            }
         }
     </script>
 </body>
