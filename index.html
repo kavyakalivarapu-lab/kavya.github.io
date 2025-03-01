@@ -22,21 +22,20 @@
         <section>
             <h2>Login with Facebook</h2>
             <p>Log in to access Instagram data:</p>
-            <button id="fbLoginBtn" onclick="facebookLogin()" style="padding: 10px 20px; background-color: #4267B2; color: white; border: none; border-radius: 5px; cursor: pointer;">Login with Facebook</button>
+            <button id="fbLoginBtn" style="padding: 10px 20px; background-color: #4267B2; color: white; border: none; border-radius: 5px; cursor: pointer;">Login with Facebook</button>
         </section>
 
         <section>
             <h2>Privacy Policy</h2>
             <p>For more information on how we handle data, please visit our <a href="privacy-policy.html">Privacy Policy</a>.</p>
-            
         </section>
 
         <section>
             <h2>Data Deletion</h2>
             <p>For information about how we handle your data, please visit our <a href="data-deletion.html">Data Deletion Request</a> page.</p>
         </section>
-
     </main>
+
     <footer>
         <p>&copy; 2025 Cyberbullying Detection Project. All rights reserved.</p>
     </footer>
@@ -44,35 +43,40 @@
     <!-- Load Facebook SDK -->
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+    
     <script>
-        // Initialize Facebook SDK
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId      : '1166872554790044',  // Replace with your app's actual ID
-                cookie     : true,
-                xfbml      : true,
-                version    : 'v12.0'         // Use the latest version
-            });
-            console.log('FB SDK initialized');
-        };
+        document.addEventListener("DOMContentLoaded", function () {
+            // Initialize Facebook SDK
+            window.fbAsyncInit = function() {
+                FB.init({
+                    appId      : '1166872554790044',  // Replace with your actual App ID
+                    cookie     : true,
+                    xfbml      : true,
+                    version    : 'v18.0'  // Always use the latest stable version
+                });
 
-        // Handle the Facebook Login
-        function facebookLogin() {
-            if (typeof FB !== 'undefined') {
-                FB.login(function(response) {
-                    if (response.authResponse) {
-                        console.log('Welcome! Fetching your information.... ');
-                        FB.api('/me?fields=id,name,email', function(response) {
-                            console.log('Good to see you, ' + response.name);
-                        });
-                    } else {
-                        console.log('User cancelled login or did not fully authorize.');
-                    }
-                }, { scope: 'public_profile,email,instagram_basic,pages_show_list' });  
-            } else {
-                console.error('Facebook SDK not loaded.');
-            }
-        }
+                console.log('FB SDK initialized');
+            };
+
+            // Handle Facebook Login
+            document.getElementById('fbLoginBtn').addEventListener('click', function() {
+                if (typeof FB !== 'undefined') {
+                    FB.login(function(response) {
+                        if (response.authResponse) {
+                            console.log('Welcome! Fetching your information.... ');
+                            FB.api('/me?fields=id,name,email', function(response) {
+                                console.log('Good to see you, ' + response.name);
+                            });
+                        } else {
+                            console.error('User cancelled login or did not fully authorize.');
+                        }
+                    }, { scope: 'public_profile,email,pages_show_list,instagram_manage_comments' });  
+                } else {
+                    console.error('Facebook SDK not loaded.');
+                }
+            });
+        });
     </script>
+
 </body>
 </html>
