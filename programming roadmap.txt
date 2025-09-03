@@ -1,0 +1,24 @@
+---> solve all programs from code for win site.---20 days
+
+----> solve extra pattern problems given by harish.--- 1 week
+
+---> solve built in methods logic.---3 days
+
+---> solve easy to medium problems from leetcode(for frst 10 days don't look for solutions, try on your own----- 15 min for thinking and 1 hr for problem solving, if not achived refer youtube) ----- 10 days full time + 20 days
+
+---> DSA
+	---> Sortings
+	---> Two Pointers method-- 20 program(array--20 programs)
+	---> arrays and strings --- each 20 programs
+
+	--->hash table
+	--->linked lists and types--20 programs--10 days
+	--->recursion
+	---> divide and conquer
+	---> back tracking
+	--->trees and graphs
+	---> Searching
+
+
+https://takeuforward.org/plus/dsa/problems/selection-sort
+https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/
